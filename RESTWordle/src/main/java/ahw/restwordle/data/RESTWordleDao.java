@@ -1,6 +1,12 @@
 package ahw.restwordle.data;
 
-public class RESTWordleDao {
-    
+import ahw.restwordle.models.Round;
+
+
+
+
+public interface RESTWordleDao{
+    int createGame();
+    public Round guess(int guess, int game);
 }
 

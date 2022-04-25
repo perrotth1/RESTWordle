@@ -8,6 +8,13 @@ public class Game {
     private boolean inProgress;
     private Map<String, String> rounds;
 
+    /*public Game(int id, String answer, boolean inProgress, Map<String, String> rounds){
+        setId(id);
+        setAnswer(answer);
+        setInProgress(inProgress);
+        
+    }*/
+    
     public int getId() {
         return id;
     }
