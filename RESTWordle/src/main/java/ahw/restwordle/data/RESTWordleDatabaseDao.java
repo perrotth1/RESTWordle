@@ -5,6 +5,7 @@
 package ahw.restwordle.data;
 
 import ahw.restwordle.models.Game;
+import ahw.restwordle.models.Guess;
 import ahw.restwordle.models.Round;
 import static java.lang.Boolean.TRUE;
 import java.sql.Connection;
@@ -83,8 +84,7 @@ public class RESTWordleDatabaseDao implements RESTWordleDao {
 
     }
     @Override
-    public Round guess(int guess, int game){
-        Round round = new Round();
+    public Round addRound(Round round, int gameId){
         return round;
     }
 
