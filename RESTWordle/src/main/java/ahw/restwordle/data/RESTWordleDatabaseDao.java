@@ -90,12 +90,54 @@ public class RESTWordleDatabaseDao implements RESTWordleDao {
         return jdbcTemplate.query(sql, new GamesMapper());
     }
     @Override
+    public Round addRound(String guess, String result, int gameId){
+        final String sql = "INSERT INTO rounds(guess, result, roundTime, gameId) "
+                + "VALUES (?, ?, ?, ?)";
+        
+        Date date = Date.valueOf(LocalDate.now());
+        
+        jdbcTemplate.update( (Connection conn) -> {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, guess);
+            statement.setString(2, result);
+            statement.setDate(3, date );
+            statement.setInt(4, gameId);
+            return statement;
+        });
+        
+        final String sqlQuery = "SELECT * FROM rounds WHERE rounds.roundId = (SELECT LAST_INSERT_ID())";
+        
+        return jdbcTemplate.queryForObject(sqlQuery, new RoundMapper() );
+    }
+
+    @Override
     public List<Round> getRounds(int gameId){
         String sql = "SELECT * FROM rounds WHERE gameId = ?;";
         return jdbcTemplate.query(sql, new RoundMapper(), gameId);
     }
     
+    
+
+
+    @Override
+    public Game getGameById(int gameId) {
+        final String sqlQuery = "SELECT * FROM games WHERE games.gameId = ?";
+        return jdbcTemplate.queryForObject(sqlQuery, new GamesMapper(), gameId);
+    }
+
+    @Override
+    public List<Game> getAllGames() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Round> getRoundsByGameId(int gameId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+  
     private static final class GamesMapper implements RowMapper<Game> {
+
 
         @Override
         public Game mapRow(ResultSet rs, int index) throws SQLException {
