@@ -44,7 +44,7 @@ public class RESTWordleServiceLayer {
             if(g.getGuess().charAt(i) == game.getAnswer().charAt(i)){
                 exact++;
             }
-            else if(game.getAnswer().contains( Character.toString( g.getGuess().charAt(i) ) ) ){
+            else if(game.getAnswer().substring(i).contains( Character.toString( g.getGuess().charAt(i) ) ) ){
                 partial++;
             }
         }
