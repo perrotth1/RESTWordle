@@ -106,7 +106,8 @@ public class RESTWordleDatabaseDao implements RESTWordleDao {
 
     @Override
     public Game getGameById(int gameId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        final String sqlQuery = "SELECT * FROM games WHERE games.gameId = ?";
+        return jdbcTemplate.queryForObject(sqlQuery, new GameMapper(), gameId);
     }
 
     @Override
