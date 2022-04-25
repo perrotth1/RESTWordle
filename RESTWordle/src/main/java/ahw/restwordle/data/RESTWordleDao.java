@@ -15,6 +15,5 @@ public interface RESTWordleDao{
     public Game getGameById(int gameId);
     public List<Game> getAllGames();
     public List<Round> getRoundsByGameId(int gameId);
-    public Round guess(Guess guess);
 }
 
