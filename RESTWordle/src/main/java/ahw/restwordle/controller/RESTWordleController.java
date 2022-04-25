@@ -1,12 +1,15 @@
 package ahw.restwordle.controller;
 
 import ahw.restwordle.data.RESTWordleDao;
+import ahw.restwordle.models.Game;
 import ahw.restwordle.models.Guess;
 import ahw.restwordle.models.Round;
 import ahw.restwordle.service.RESTWordleServiceLayer;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class RESTWordleController {
 
     private final RESTWordleServiceLayer service;
-
-    public RESTWordleController(RESTWordleServiceLayer service){
+    private final RESTWordleDao dao;
+    public RESTWordleController(RESTWordleServiceLayer service, RESTWordleDao dao){
         this.service = service;
+        this.dao = dao;
     }
     
     @PostMapping("/begin")
@@ -37,6 +41,17 @@ public class RESTWordleController {
         }
         return ResponseEntity.ok(resultRound);
     }
+    @GetMapping("/game")
+    public List<Game> getGames()
+    {
+        return dao.getGames();
+    }
+    @GetMapping("/rounds/{gameId}")
+    public List<Round> getRounds(@PathVariable int gameId){
+        
+        return dao.getRounds(gameId);
+    }
+  
 /*
     @GetMapping("/{id}")
     public ResponseEntity<ToDo> findById(@PathVariable int id) {

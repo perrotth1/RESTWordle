@@ -83,15 +83,24 @@ public class RESTWordleDatabaseDao implements RESTWordleDao {
         return keyHolder.getKey().intValue();
 
     }
+
     @Override
-    public Round guess(Guess guess){
-        Round round = new Round();
-        return round;
+    public List<Game> getGames(){
+        String sql = "SELECT * FROM games;";
+        return jdbcTemplate.query(sql, new GamesMapper());
     }
-    private static final class GameMapper implements RowMapper<Game> {
+    @Override
+    public List<Round> getRounds(int gameId){
+        String sql = "SELECT * FROM rounds WHERE gameId = ?;";
+        return jdbcTemplate.query(sql, new RoundMapper(), gameId);
+    }
+    
+    private static final class GamesMapper implements RowMapper<Game> {
 
         @Override
         public Game mapRow(ResultSet rs, int index) throws SQLException {
+            
+            
             Game game = new Game();
             game.setId(rs.getInt("gameId"));
             game.setAnswer(rs.getString("answer"));
@@ -106,7 +115,6 @@ public class RESTWordleDatabaseDao implements RESTWordleDao {
             Round round = new Round();
             round.setRoundId(rs.getInt("roundId"));
             round.setGuess(rs.getString("guess"));
-
             round.setResult(rs.getString("result"));
             round.setRoundTime(rs.getDate("roundTime"));
             round.setGameId(rs.getInt("gameId"));
