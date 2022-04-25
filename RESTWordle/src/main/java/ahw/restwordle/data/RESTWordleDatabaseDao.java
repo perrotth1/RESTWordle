@@ -87,6 +87,22 @@ public class RESTWordleDatabaseDao implements RESTWordleDao {
         Round round = new Round();
         return round;
     }
+
+    @Override
+    public Game getGameById(int gameId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Game> getAllGames() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Round> getRoundsByGameId(int gameId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
     private static final class GameMapper implements RowMapper<Game> {
 
         @Override
