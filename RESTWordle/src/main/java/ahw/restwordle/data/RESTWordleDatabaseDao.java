@@ -112,7 +112,7 @@ public class RESTWordleDatabaseDao implements RESTWordleDao {
 
     @Override
     public List<Round> getRounds(int gameId){
-        String sql = "SELECT * FROM rounds WHERE gameId = ?;";
+        String sql = "SELECT * FROM rounds WHERE gameId = ? ORDER BY roundTime;";
         return jdbcTemplate.query(sql, new RoundMapper(), gameId);
     }
     
