@@ -39,12 +39,21 @@ public class RESTWordleServiceLayer {
             return null;
         }
         
-        //calculate results of guess
-        
+        int exact = 0, partial = 0;
+        for(int i = 0; i < 4; i++){
+            if(g.getGuess().charAt(i) == game.getAnswer().charAt(i)){
+                exact++;
+            }
+            else if(game.getAnswer().contains( Character.toString( g.getGuess().charAt(i) ) ) ){
+                partial++;
+            }
+        }
+        String resultStr = "e:" + exact + ":p:" + partial;
         
         //build round in dao
+        Round result = dao.addRound(g.getGuess(), resultStr, g.getGameId());
         
         //return round 
-        return null;
+        return result;
     }
 }

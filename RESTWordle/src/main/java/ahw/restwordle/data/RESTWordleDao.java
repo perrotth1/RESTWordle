@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface RESTWordleDao{
     int createGame();
-    public Round addRound(Round round, int gameId);
+    public Round addRound(String guess, String result, int gameId);
     public Game getGameById(int gameId);
     public List<Game> getAllGames();
     public List<Round> getRoundsByGameId(int gameId);

@@ -84,8 +84,24 @@ public class RESTWordleDatabaseDao implements RESTWordleDao {
 
     }
     @Override
-    public Round addRound(Round round, int gameId){
-        return round;
+    public Round addRound(String guess, String result, int gameId){
+        final String sql = "INSERT INTO rounds(guess, result, roundTime, gameId) "
+                + "VALUES (?, ?, ?, ?)";
+        
+        Date date = Date.valueOf(LocalDate.now());
+        
+        jdbcTemplate.update( (Connection conn) -> {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, guess);
+            statement.setString(2, result);
+            statement.setDate(3, date );
+            statement.setInt(4, gameId);
+            return statement;
+        });
+        
+        final String sqlQuery = "SELECT * FROM rounds WHERE rounds.roundId = (SELECT LAST_INSERT_ID())";
+        
+        return jdbcTemplate.queryForObject(sqlQuery, new RoundMapper() );
     }
 
     @Override
