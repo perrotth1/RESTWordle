@@ -1,9 +1,14 @@
 package ahw.restwordle.controller;
 
 import ahw.restwordle.data.RESTWordleDao;
+import ahw.restwordle.models.Guess;
+import ahw.restwordle.models.Round;
+import ahw.restwordle.service.RESTWordleServiceLayer;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,16 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/wordle")
 public class RESTWordleController {
 
-    private final RESTWordleDao dao;
+    private final RESTWordleServiceLayer service;
 
-    public RESTWordleController(RESTWordleDao dao){
-        this.dao = dao;
+    public RESTWordleController(RESTWordleServiceLayer service){
+        this.service = service;
     }
     
     @PostMapping("/begin")
     @ResponseStatus(HttpStatus.CREATED)
     public int createGame() {
-        return dao.createGame();
+        return service.createGame();
+    }
+    
+    @PostMapping("/guess")
+    public ResponseEntity guess(@RequestBody Guess g){
+        Round resultRound = service.guess(g);
+        if (resultRound == null) {
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(resultRound);
     }
 /*
     @GetMapping("/{id}")

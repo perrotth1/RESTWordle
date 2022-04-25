@@ -13,8 +13,6 @@ CREATE TABLE games(
 CREATE TABLE rounds(
 	roundId INT AUTO_INCREMENT,
     guess VARCHAR(4) NOT NULL,
-    exactMatches int,
-    partialMatches int,
     result VARCHAR(7) NOT NULL,
     roundTime DATETIME NOT NULL,
     gameId INT NOT NULL,

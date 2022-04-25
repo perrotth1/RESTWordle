@@ -12,20 +12,11 @@ import java.sql.Date;
  */
 public class Round {
     int roundId;
-    int exactMatches;
-    int partialMatches;
     String guess;
     String result;
     Date roundTime;
     int gameId;
 
-    public int getExactMatches() {
-        return exactMatches;
-    }
-
-    public int getPartialMatches() {
-        return partialMatches;
-    }
     
     public int getRoundId() {
         return roundId;
@@ -47,13 +38,7 @@ public class Round {
         return gameId;
     }
 
-    public void setExactMatches(int exactMatches) {
-        this.exactMatches = exactMatches;
-    }
 
-    public void setPartialMatches(int partialMatches) {
-        this.partialMatches = partialMatches;
-    }
 
     public void setRoundId(int roundId) {
         this.roundId = roundId;

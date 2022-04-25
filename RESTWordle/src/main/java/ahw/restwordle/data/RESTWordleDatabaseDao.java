@@ -105,8 +105,7 @@ public class RESTWordleDatabaseDao implements RESTWordleDao {
             Round round = new Round();
             round.setRoundId(rs.getInt("roundId"));
             round.setGuess(rs.getString("guess"));
-            round.setExactMatches(rs.getInt("exactMatches"));
-            round.setPartialMatches(rs.getInt("partialMatches"));
+
             round.setResult(rs.getString("result"));
             round.setRoundTime(rs.getDate("roundTime"));
             round.setGameId(rs.getInt("gameId"));
